@@ -1,0 +1,3 @@
+G:/beisaier/cmake-build-debug/CMakeFiles/beisaier.dir
+G:/beisaier/cmake-build-debug/CMakeFiles/edit_cache.dir
+G:/beisaier/cmake-build-debug/CMakeFiles/rebuild_cache.dir

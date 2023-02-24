@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.20)
+project(beisaier)
+set(CMAKE_CXX_STANDARD 14)
+include_directories("G:/beisaier/packages/eigen-3.3.9")
+add_executable(beisaier main.cpp FrechetDis.cpp)
