@@ -84,9 +84,6 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="G:/beisaier/FrechetDis.cpp">
-			<Option target="beisaier"/>
-		</Unit>
 		<Unit filename="G:/beisaier/main.cpp">
 			<Option target="beisaier"/>
 		</Unit>

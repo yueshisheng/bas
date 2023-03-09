@@ -128,30 +128,6 @@ beisaier/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\beisaier.dir\build.make CMakeFiles/beisaier.dir/build
 .PHONY : beisaier/fast
 
-FrechetDis.obj: FrechetDis.cpp.obj
-.PHONY : FrechetDis.obj
-
-# target to build an object file
-FrechetDis.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\beisaier.dir\build.make CMakeFiles/beisaier.dir/FrechetDis.cpp.obj
-.PHONY : FrechetDis.cpp.obj
-
-FrechetDis.i: FrechetDis.cpp.i
-.PHONY : FrechetDis.i
-
-# target to preprocess a source file
-FrechetDis.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\beisaier.dir\build.make CMakeFiles/beisaier.dir/FrechetDis.cpp.i
-.PHONY : FrechetDis.cpp.i
-
-FrechetDis.s: FrechetDis.cpp.s
-.PHONY : FrechetDis.s
-
-# target to generate assembly for a file
-FrechetDis.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\beisaier.dir\build.make CMakeFiles/beisaier.dir/FrechetDis.cpp.s
-.PHONY : FrechetDis.cpp.s
-
 main.obj: main.cpp.obj
 .PHONY : main.obj
 
@@ -185,9 +161,6 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... beisaier
-	@echo ... FrechetDis.obj
-	@echo ... FrechetDis.i
-	@echo ... FrechetDis.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

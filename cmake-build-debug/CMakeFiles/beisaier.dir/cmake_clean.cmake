@@ -1,5 +1,4 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/beisaier.dir/FrechetDis.cpp.obj"
   "CMakeFiles/beisaier.dir/main.cpp.obj"
   "beisaier.exe"
   "beisaier.exe.manifest"

@@ -216,7 +216,6 @@ class person{
     person();
 
 
-
 protected:
         string school="neu";
         virtual void hello2()=0;//纯虚函数
@@ -226,14 +225,28 @@ protected:
 
 
 class yue12:public person{
+
+
     public:
+    static string name1;
+    static void teststatic();
+
+    yue12(int a,int b){
+       cout<<a+b<<endl;
+
+    }
 
     yue12();
 
     string addr;
     static string dream;
 
+    string getAddr() const{
+        return this->addr;
+    }
+
         void hello(void){
+
             cout<<"hello yue12"<<endl;
 
         }
@@ -267,6 +280,12 @@ class yue12:public person{
 
 
 };
+
+string yue12::name1="yueshisheng";
+void yue12::teststatic() {
+    cout<<name1<<endl;
+
+}
 
 
 string yue12::dream="play";
@@ -381,10 +400,6 @@ void callexam(){
 
 
 
-void sum(int a,int b){
-    cout<<"a+b="<<a+b<<endl;
-
-}
 void multy(int a,int b){
     cout<<"a*b="<<a*b<<endl;
 }
@@ -400,7 +415,6 @@ double FrechetDisRVs(std::vector<Eigen::Vector3d> HvPathHistory,std::vector<Eige
      double FrechetDis[HvPathHistoryLength][RvPathHistoryLength];
      for(int i=0;i<HvPathHistoryLength;i++){
         for(int j=0;j<RvPathHistoryLength;j++){
-
             FrechetDis[i][j]=-1;
 
         }
@@ -416,7 +430,6 @@ double FrechetDisRVs(std::vector<Eigen::Vector3d> HvPathHistory,std::vector<Eige
          for(int j=1;j<RvPathHistoryLength;j++){
              double temp1=min(FrechetDis[i-1][j],min(FrechetDis[i-1][j-1],FrechetDis[i][j-1]));
              FrechetDis[i][j]=max(temp1, CalEucliDis(HvPathHistory,RvPathHistory,i,j));
-
          }
 
      }
@@ -426,10 +439,66 @@ double FrechetDisRVs(std::vector<Eigen::Vector3d> HvPathHistory,std::vector<Eige
 }
 
 
+//生产者，消费者问题
+#include<condition_variable>
+std::mutex mtx;        // 全局互斥锁
+std::queue<int> que;   // 全局消息队列
+std::condition_variable cr;   // 全局条件变量
+int cnt = 1;           // 数据
 
+
+
+std::mutex m1;
+std::condition_variable cv;
+std::string data;
+bool ready = false;
+bool processed = false;
+
+
+
+void sum(int a,int b){
+        cout<<"a+b="<<a+b<<endl;
+
+
+}
 
 
 int main(void){
+    void (*sumptr)(int,int);
+    sumptr=sum;
+    sumptr(3,2);
+    Book1 book31;
+    book31.writer="yue";
+    cout<<book31.writer<<endl;
+
+
+    cout<<yue12::name1<<endl;
+    yue12::teststatic();
+    string s2023="2023";
+    s2023[1]='1';
+    string s4="13";
+    cout<<s2023.find_first_of(s4)<<endl;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     std::vector<Eigen::Vector3d> HvPathHistory;
     std::vector<Eigen::Vector3d> RvPathHistory;
@@ -544,7 +613,7 @@ int main(void){
 //    thread th3=thread(testThreadlocal,10);
 //    thread th4=thread(testThreadlocal,20);
 //参数为async是异步，defered是同步
-    future<int> result=async(launch::deferred,async1);
+    future<int> result=async(launch::async,async1);
     int res=result.get();
     cout<<"测试async"<<this_thread::get_id()<<endl;
 
@@ -555,6 +624,9 @@ int main(void){
         cout<<"测试双端队列：";
         cout<<*de_iter;
     }
+
+
+
 
 
     pair<string,int> p1=make_pair("测试pair",214);
@@ -691,19 +763,30 @@ int main(void){
     cout<<"队列的第一个元素"<<queue1.front()<<'\n';
 
     //tuple的基本的使用
-    tuple<int,string,int> tuple1(2023,"yue",1);
-    cout<<"输出tuple"<<get<2>(tuple1)<<endl;
+    tuple<int,string,int,string> tuple1(2023,"yue",1,"shi");
+    cout<<"输出tuple"<<get<3>(tuple1)<<endl;
 
 
     int i=2;
     int* unique1=&i;
+
+
     unique_ptr<int> uni(unique1);
     cout<<"智能指针unique："<<*uni<<endl;
     unique_ptr<int> uni2=move(uni);
     cout<<"智能指针unique2："<<*uni2<<endl;
     uni2.release();
 
+
+
     shared_ptr<int> shar1= make_shared<int>(i);
+    shared_ptr<int> share2(new int(100));
+    shared_ptr<int> shared3(share2);
+    shared_ptr<int> shared4=move(shared3);
+    cout<<"shared2的计数："<<shared3.use_count()<<endl;
+
+
+
     shared_ptr<int> shar2(shar1);//拷贝加一
     shared_ptr<int> shar3=shar1; //赋值也加一
     cout<<shar3.use_count()<<endl;

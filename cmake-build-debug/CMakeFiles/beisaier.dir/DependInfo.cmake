@@ -8,7 +8,6 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "G:/beisaier/FrechetDis.cpp" "G:/beisaier/cmake-build-debug/CMakeFiles/beisaier.dir/FrechetDis.cpp.obj"
   "G:/beisaier/main.cpp" "G:/beisaier/cmake-build-debug/CMakeFiles/beisaier.dir/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
