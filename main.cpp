@@ -180,7 +180,7 @@
 #include <functional>
 #include<Eigen/Dense>
 #include<cmath>
-
+#include<fstream>
 #include<bits/stdc++.h>
 
 using namespace std;
@@ -191,12 +191,10 @@ mutex m;
 
 
 
-class person{
+ class person{
     public :
         string *name;
         int age;
-
-
         void hello(void){
             cout<<"hello world"<<endl;
         }
@@ -209,41 +207,51 @@ class person{
         person(person& p1){
            cout<<"这是深拷贝函数"<<endl;
            this->name=new string(*(p1.name));  //new的括号里边是string的值，代表这个指针指向这个字符串，new返回的是指针
-           cout<<name<<endl;
-
         }
 
     person();
 
-
+        friend class yue12;
 protected:
         string school="neu";
-        virtual void hello2()=0;//纯虚函数
+        virtual void hello2();//纯虚函数
+private:
+      string test="yss";
+      void testfr(){
+          cout<<"jjj"<<endl;
+      }
 
 };
+
+
+
 
 
 
 class yue12:public person{
 
 
+
+
+
+
     public:
+    person p;
+    void test1(){
+        cout<<p.test<<endl;
+    }
+
+
+    string name2;
     static string name1;
     static void teststatic();
 
-    yue12(int a,int b){
-       cout<<a+b<<endl;
-
-    }
 
     yue12();
 
-    string addr;
+    string* addr;
     static string dream;
 
-    string getAddr() const{
-        return this->addr;
-    }
 
         void hello(void){
 
@@ -254,20 +262,18 @@ class yue12:public person{
             cout<<"纯虚函数"<<endl;
         }
         friend void test_friend();
-        yue12(string s){
-            this->addr="y";
-        }
+
         yue12(yue12 & y){
             cout<<"深拷贝函数"<<endl;
-            this->addr=y.addr;
-            cout<<addr<<endl;
+           this->addr=new string(*(y.addr));
+           cout<<*addr<<endl;
+
+
 
         }
 
         void static testStatic(){
             cout<<"这是static函数"<<endl;
-
-
 
 
         }
@@ -281,7 +287,12 @@ class yue12:public person{
 
 };
 
-string yue12::name1="yueshisheng";
+
+
+
+
+
+string yue12::name1="yueshisheng"; //必须在外边初始化
 void yue12::teststatic() {
     cout<<name1<<endl;
 
@@ -311,20 +322,7 @@ void person::hello1() {
 person::person() {}
 
 
-void proc1(int i){
-    m.lock();
-    cout<<"proc1正在改写i"<<endl;
-    cout<<"原始i："<<i<<endl;
-    cout<<"现在i："<<i+2<<endl;
-    m.unlock();
-}
-void proc2(int i){
-    m.lock();
-    cout<<"proc2正在改写i"<<endl;
-    cout<<"原始i："<<i<<endl;
-    cout<<"现在i："<<i+1<<endl;
-    m.unlock();
-}
+
 
 void sign1(int num){
     cout<<"stop"<<endl;
@@ -392,8 +390,9 @@ void testreference(string & s){
 void testCallback(void (*callback1)()){
     cout<<"测试回调函数"<<endl;
     callback1();
-
 }
+
+
 void callexam(){
     cout<<"被回调的函数"<<endl;
 }
@@ -450,6 +449,7 @@ int cnt = 1;           // 数据
 
 std::mutex m1;
 std::condition_variable cv;
+std::condition_variable cond;
 std::string data;
 bool ready = false;
 bool processed = false;
@@ -463,13 +463,104 @@ void sum(int a,int b){
 }
 
 
+
+#include<csignal>
+#include <unistd.h>
+
+void handlesign(int signum){
+    cout<<"收到信号信息"<<endl;
+    exit(signum);
+
+}
+
+#include<complex.h>
+
+
+#include<set>
+static int a=0;
+void first(int* ref) {
+    int a=*ref;
+    unique_lock<mutex> unq(m);
+    while (true)
+    {
+
+        while (a % 3 != 0)
+            cond.wait(unq);
+        a++;
+        printf("a=%d\n", a % 3);
+        cond.notify_all();
+    }
+}
+
+
+
 int main(void){
+
+    yue12 y12;
+    y12.test1();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    char data[]="yueshishne1111111111111111111111111111111g";
+    ofstream outstream;
+    outstream.open("rebase11.txt");
+    outstream.write(data, sizeof(data));
+    outstream.close();
+
+    string s11;
+    char data1[]="";
+    ifstream instream("rebase11.txt");
+    instream.read(data1,100);
+
+    cout<<data1<<endl;
+
+
+
+
+
+
+
+
     void (*sumptr)(int,int);
     sumptr=sum;
     sumptr(3,2);
     Book1 book31;
     book31.writer="yue";
     cout<<book31.writer<<endl;
+
+
+
+
+
 
 
     cout<<yue12::name1<<endl;
@@ -615,7 +706,7 @@ int main(void){
 //参数为async是异步，defered是同步
     future<int> result=async(launch::async,async1);
     int res=result.get();
-    cout<<"测试async"<<this_thread::get_id()<<endl;
+    cout<<"测试async"<<res<<endl;
 
 
     deque<int> de1{1,3,5,7};
@@ -660,9 +751,6 @@ int main(void){
 
 
 
-     yue12  yue122("ys");
-     yue12 yuei (yue122);//深拷贝
-     yue12 shallow=yue122;//浅拷贝
 
 
 
@@ -686,7 +774,6 @@ int main(void){
 
 
 
-   string  c1="yueshisheng1";
 //   person per1(&c1,24);
 //   person per2(per1);
    map<int,string> map1;
@@ -723,6 +810,7 @@ int main(void){
    cout<<"map的键值对："<<map1.count(1)<<endl;
    map1[3]="yueshisheng3";  //这种方法简单
    cout<<"map的元素"<<map1.at(3)<<endl;
+
 
 
 
@@ -772,7 +860,7 @@ int main(void){
 
 
     unique_ptr<int> uni(unique1);
-    cout<<"智能指针unique："<<*uni<<endl;
+    cout<<"智能指针unique："<<*unique1<<endl;
     unique_ptr<int> uni2=move(uni);
     cout<<"智能指针unique2："<<*uni2<<endl;
     uni2.release();
@@ -800,11 +888,10 @@ int main(void){
     }
 
 
-    thread th1=thread(proc1, i);
-    thread th2=thread(proc2, i);
-    th1.join();//等于th1线程执行完
-    th2.join();
-
+//    thread th1=thread(proc1, i);
+//    thread th2=thread(proc2, i);
+//    th1.join();//等于th1线程执行完
+//    th2.join();
 
 
     //枚举
